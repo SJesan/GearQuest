@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GearQuest - Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" href="../../public/images/joystick.png">
+</head>
+
+<body class="bg-gray-900">
+
+<!-- Navbar -->
+<nav class="bg-black/95 backdrop-blur-sm text-white px-6 py-4 flex items-center justify-between shadow-lg sticky top-0 z-50">
+    <a href="../../index.html" class="text-2xl font-bold text-red-500 tracking-widest hover:scale-105 transition-transform">
+        Gear<span class="tracking-normal text-white">Quest</span>
+    </a>
+
+    <ul class="hidden md:flex space-x-8 text-lg font-medium">
+        <li><a href="../../index.html" class="hover:text-red-500 transition relative group">
+            Home
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+        <li><a href="../../index.html#productsSection" class="hover:text-red-500 transition relative group">
+            Shop
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+        <li><a href="cart.html" class="text-red-500 transition relative group flex items-center gap-1">
+            <img src="../../public/images/shopping-cart.png" alt="Cart" class="w-5 h-5 inline-block"> Cart
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+        <li><a href="about.html" class="hover:text-red-500 transition relative group">
+            About
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+        <li><a href="../../index.html#footerSection" class="hover:text-red-500 transition relative group">
+            Contact
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+    </ul>
+
+    <!-- for mobile -->
+    <div class="md:hidden">
+        <button id="menuBtn" class="focus:outline-none hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="md:hidden bg-black/95 backdrop-blur-sm text-white px-6 py-4 hidden fixed w-full z-40">
+    <ul class="space-y-4 text-lg font-medium">
+        <li><a href="../../index.html" class="hover:text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition">Home</a></li>
+        <li><a href="../../index.html#productsSection" class="hover:text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition">Shop</a></li>
+        <li><a href="cart.html" class="text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition flex items-center gap-2"><img src="../../public/images/shopping-cart.png" alt="Cart" class="w-5 h-5 inline-block"> Cart</a></li>
+        <li><a href="about.html" class="hover:text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition">About</a></li>
+        <li><a href="../../index.html#footerSection" class="hover:text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition">Contact</a></li>
+    </ul>
+</div>
+
+<!-- Cart Content -->
+<div class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold text-white mb-8">Shopping Cart</h1>
+    
+    <!-- Cart Items -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Cart Items List -->
+        <div class="lg:col-span-2">
+            <div id="cart-items" class="space-y-4">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="bg-black p-6 rounded-lg shadow-lg h-fit">
+            <h2 class="text-2xl font-semibold text-red-500 mb-6">Order Summary</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between text-gray-400">
+                    <span>Subtotal</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <!-- Voucher Code Section -->
+                <div class="border-t border-gray-700 pt-4">
+                    <div class="flex gap-2">
+                        <input type="text" id="voucherInput" placeholder="Enter voucher code" 
+                            class="flex-grow bg-gray-800 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                        <button onclick="applyVoucher()" 
+                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition">
+                            Apply
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">Use code <span class="font-bold text-green-400">GEAR15</span> for 15% off!</p>
+                    <p id="voucherMessage" class="text-sm mt-2 text-gray-400"></p>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                    <span>Shipping</span>
+                    <span id="shipping">$0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                    <span>Tax</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                    <span>Discount</span>
+                    <span id="discount">$0.00</span>
+                </div>
+                <hr class="border-gray-700">
+                <div class="flex justify-between text-white text-xl font-semibold">
+                    <span>Total</span>
+                    <span id="total">$0.00</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full text-lg font-semibold transition">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Thank You Modal -->
+<div id="thankYouModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50">
+    <div class="bg-gray-900 p-8 rounded-2xl max-w-md w-full mx-4 border-2 border-red-500">
+        <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <h2 class="text-2xl font-bold text-white mb-4">Thank You for Your Order!</h2>
+            <p class="text-gray-300 mb-6">Your order has been successfully placed. We'll process it right away!</p>
+            
+            <!-- Order Details -->
+            <div class="bg-gray-800 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-semibold text-red-500 mb-2">Order Details</h3>
+                <p class="text-gray-300 mb-1">Order Total: <span id="modalTotal" class="text-white"></span></p>
+                <p class="text-gray-300">Items: <span id="modalItems" class="text-white"></span></p>
+            </div>
+
+            <!-- Needs Section -->
+            <div class="bg-gray-800 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-semibold text-red-500 mb-2">What's Next?</h3>
+                <ul class="text-gray-300 text-left space-y-2">
+                    <li class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        Check your email for order confirmation
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        Track your order status
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                        Contact support if needed
+                    </li>
+                </ul>
+            </div>
+
+            <button onclick="closeThankYouModal()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full transition">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-black text-white py-6 mt-16">
+    <div class="container mx-auto px-6 text-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <!-- Contact Information -->
+            <div>
+                <h3 class="text-xl font-semibold text-red-500 mb-4">Contact Us</h3>
+                <p class="text-gray-400 mb-2">Email: <a href="mailto:support@gearquest.com" class="hover:text-red-500 transition">support@gearquest.com</a></p>
+                <p class="text-gray-400 mb-2">Phone: <a href="tel:+1234567890" class="hover:text-red-500 transition">+1 234 567 890</a></p>
+                <p class="text-gray-400 mb-2">Address: 123 Gaming Street, GameCity</p>
+            </div>
+
+            <!-- Links -->
+            <div>
+                <h3 class="text-xl font-semibold text-red-500 mb-4">Quick Links</h3>
+                <ul class="text-gray-400">
+                    <li><a href="../../index.html" class="hover:text-red-500 transition">Home</a></li>
+                    <li><a href="cart.html" class="hover:text-red-500 transition">Cart</a></li>
+                    <li><a href="../../index.html#productsSection" class="hover:text-red-500 transition">Shop</a></li>
+                    <li><a href="about.html" class="hover:text-red-500 transition">About</a></li>
+                    <li><a href="../../index.html#footerSection" class="hover:text-red-500 transition">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="p-3">
+                <!-- Social Media -->
+                <div class="my-3">
+                    <h3 class="text-xl font-semibold text-red-500 mb-4">Follow Us</h3>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://facebook.com" target="_blank" class="text-gray-400 hover:text-red-500 transition">Facebook</a>
+                        <a href="https://twitter.com" target="_blank" class="text-gray-400 hover:text-red-500 transition">Twitter</a>
+                        <a href="https://instagram.com" target="_blank" class="text-gray-400 hover:text-red-500 transition">Instagram</a>
+                    </div>
+                </div>
+                <!-- Developed By -->
+                <div>
+                    <h3 class="text-xl font-semibold text-red-500 mb-4">Developed By</h3>
+                    <p class="text-gray-400">Sadikul_Jesan</p>
+                    <p class="text-gray-400">Mahi-B-Rahaman</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Text -->
+    <div class="bg-gray-800 text-center p-4 mt-2">
+        <p class="text-gray-400 text-sm">© 2025 GearQuest. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="../js/cart.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+</html> 

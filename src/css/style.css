@@ -1,0 +1,62 @@
+body {
+  font-family: "Orbitron", sans-serif;
+}
+
+/* Smooth transitions */
+.transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Mobile menu animation */
+#mobileMenu {
+  transition: opacity 0.3s ease-in-out;
+}
+
+#mobileMenu.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slider improvements */
+#slider {
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Product card hover effects */
+.bg-black.p-6.rounded-lg.shadow-lg {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.bg-black.p-6.rounded-lg.shadow-lg:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 0, 0, 0.1);
+}
+
+/* Cart button hover effect */
+.fixed.top-20.right-6.z-50 {
+  transition: transform 0.3s ease-in-out;
+}
+
+.fixed.top-20.right-6.z-50:hover {
+  transform: scale(1.1);
+}
+
+/* Navigation links hover effect */
+nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #ef4444;
+  transition: width 0.3s ease-in-out;
+}
+
+nav a:hover::after {
+  width: 100%;
+}

@@ -1,0 +1,129 @@
+body {
+  font-family: "Orbitron", sans-serif;
+}
+
+/* Smooth transitions */
+.transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Mobile menu animation */
+#mobileMenu {
+  transition: opacity 0.3s ease-in-out;
+}
+
+#mobileMenu.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slider improvements */
+#slider {
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Product card hover effects */
+.bg-black.p-6.rounded-lg.shadow-lg {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.bg-black.p-6.rounded-lg.shadow-lg:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 0, 0, 0.1);
+}
+
+/* Cart button hover effect */
+.fixed.top-20.right-6.z-50 {
+  transition: transform 0.3s ease-in-out;
+}
+
+.fixed.top-20.right-6.z-50:hover {
+  transform: scale(1.1);
+}
+
+/* Navigation links hover effect */
+nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #ef4444;
+  transition: width 0.3s ease-in-out;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+#notification {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#notification > div {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+#toast {
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+#toast > div {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+#toast.show {
+    opacity: 1;
+}
+
+#toast.show > div {
+    transform: translateX(0);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+#cartNotification {
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    will-change: transform;
+    overflow: hidden;
+}
+
+#cartNotification > div {
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-10px);
+    }
+}
+
+/* Remove old notification styles */
+#notification, #toast {
+    display: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}

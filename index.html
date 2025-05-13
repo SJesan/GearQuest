@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GearQuest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="icon" type="image/png" href="public/images/joystick.png">
+</head>
+
+<body class="bg-gray-900">
+    <!-- Add to Cart Notification -->
+    <div id="cartNotification" class="fixed top-32 right-0 z-40 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 max-w-xs sm:max-w-md w-full">
+        <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span id="cartNotificationText" class="whitespace-nowrap truncate">Product added to cart!</span>
+        </div>
+    </div>
+
+    <!-- Simple Toast -->
+    <div id="toast" class="fixed top-4 right-4 z-50 opacity-0 transition-opacity duration-300">
+        <div class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span id="notificationText">Product added to cart successfully!</span>
+        </div>
+    </div>
+
+<!-- Navbar -->
+<nav class="bg-black/95 backdrop-blur-sm text-white px-6 py-4 flex items-center justify-between shadow-lg sticky top-0 z-50">
+    <a href="index.html" class="text-2xl font-bold text-red-500 tracking-widest hover:scale-105 transition-transform">
+        Gear<span class="tracking-normal text-white">Quest</span>
+    </a>
+
+    <ul class="hidden md:flex space-x-8 text-lg font-medium">
+        <li><a href="#" class="text-red-500 relative group">
+            Home
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+        <li><a href="#productsSection" class="hover:text-red-500 transition relative group">
+            Shop
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+        <li><a href="src/html/cart.html" class="hover:text-red-500 transition relative group flex items-center gap-1">
+            <img src="public/images/shopping-cart.png" alt="Cart" class="w-5 h-5 inline-block"> Cart
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+        <li><a href="src/html/about.html" class="hover:text-red-500 transition relative group">
+            About
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+        <li><a href="#footerSection" class="hover:text-red-500 transition relative group">
+            Contact
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-500 transition-all group-hover:w-full"></span>
+        </a></li>
+    </ul>
+
+    <!-- for mobile -->
+    <div class="md:hidden">
+        <button id="menuBtn" class="focus:outline-none hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="md:hidden bg-black/95 backdrop-blur-sm text-white px-6 py-4 hidden fixed w-full z-40">
+    <ul class="space-y-4 text-lg font-medium">
+        <li><a href="#" class="text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition">Home</a></li>
+        <li><a href="#productsSection" class="hover:text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition">Shop</a></li>
+        <li><a href="src/html/cart.html" class="hover:text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition flex items-center gap-2"><img src="public/images/shopping-cart.png" alt="Cart" class="w-5 h-5 inline-block"> Cart</a></li>
+        <li><a href="src/html/about.html" class="hover:text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition">About</a></li>
+        <li><a href="#footerSection" class="hover:text-red-500 block py-2 hover:bg-gray-800 rounded-lg px-4 transition">Contact</a></li>
+    </ul>
+</div>
+
+<!-- Cart Button -->
+<a href="src/html/cart.html" class="fixed top-20 right-6 z-50 group">
+    <div class="bg-red-500 hover:bg-red-600 p-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 hover:shadow-xl hover:shadow-red-500/50 relative">
+        <img src="public/images/shopping-cart.png" alt="Cart" class="w-10 h-10 transition-transform duration-300 group-hover:scale-110">
+        <span id="cartCount" class="absolute -top-2 -right-2 bg-white text-red-500 font-bold rounded-full w-6 h-6 flex items-center justify-center text-sm shadow-lg transform transition-all duration-300 group-hover:scale-110">
+            0
+        </span>
+    </div>
+</a>
+
+
+<!-- Slider -->
+<div class="relative w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] overflow-hidden">
+    <div id="slider" class="flex transition-all duration-700 ease-in-out w-full h-full">
+        <img src="public/images/slider-1.jpg" class="w-full h-full object-cover flex-shrink-0" />
+        <img src="public/images/slider-2.jpg" class="w-full h-full object-cover flex-shrink-0" />
+        <img src="public/images/slider-3.jpg" class="w-full h-full object-cover flex-shrink-0" />
+    </div>
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+
+    <!-- Buttons -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4 sm:gap-6 z-10">
+        <button class="bg-red-500 hover:bg-red-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-500/50 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+            </svg>
+            Shop Now
+        </button>
+        <button class="bg-white/90 hover:bg-white text-black px-6 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+            </svg>
+            Explore
+        </button>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button id="prev"
+            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 sm:p-4 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+    <button id="next"
+            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 sm:p-4 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+
+    <!-- Slider Dots -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+        <button class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
+        <button class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
+        <button class="w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
+    </div>
+</div>
+
+
+<!--products-->
+<div id="productsSection" class="container mx-auto px-6 pt-4 ">
+    <div id="products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div id="display-card" class="contents">
+        </div>
+    </div>
+</div>
+    <!--<div id="mycard">
+        <div class=" my-card  ">
+            <h2 class="text-center">My Card</h2>
+            <hr>
+            <h3 >Total Products <span id="total-products">0</span></h3>
+            <h3 >Price <span id="price">0</span></h3>
+            <h3>Delivery Charge &nbsp&nbsp<span id="delivery-charge">0</span></h3>
+            <hr>
+            <h2>Total Price  &nbsp <span id="total">0</span></h2>
+            <button onclick="orderProducts()" class="bg-green-700">Order Now</button>
+
+            <div id="details">
+
+            </div>
+        </div>
+    </div>-->
+
+
+
+    <!-- Footer -->
+    <footer id="footerSection" class="bg-black text-white py-6 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <!-- Contact Information -->
+                <div>
+                    <h3 class="text-xl font-semibold text-red-500 mb-4">Contact Us</h3>
+                    <p class="text-gray-400 mb-2">Email: <a href="mailto:support@gearquest.com" class="hover:text-red-500 transition">support@gearquest.com</a></p>
+                    <p class="text-gray-400 mb-2">Phone: <a href="tel:+1234567890" class="hover:text-red-500 transition">+1 234 567 890</a></p>
+                    <p class="text-gray-400 mb-2">Address: 123 Gaming Street, GameCity</p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h3 class="text-xl font-semibold text-red-500 mb-4">Quick Links</h3>
+                    <ul class="text-gray-400">
+                        <li><a href="#" class="hover:text-red-500 transition">Home</a></li>
+                        <li><a href="src/html/cart.html" class="hover:text-red-500 transition">Cart</a></li>
+                        <li><a href="#productsSection" class="hover:text-red-500 transition">Shop</a></li>
+                        <li><a href="src/html/about.html" class="hover:text-red-500 transition">About</a></li>
+                        <li><a href="#footerSection" class="hover:text-red-500 transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="p-3">
+                    <!-- Social Media -->
+                    <div class="my-3">
+                        <h3 class="text-xl font-semibold text-red-500 mb-4">Follow Us</h3>
+                        <div class="flex justify-center space-x-6">
+                            <a href="https://facebook.com" target="_blank" class="text-gray-400 hover:text-red-500 transition">Facebook</a>
+                            <a href="https://twitter.com" target="_blank" class="text-gray-400 hover:text-red-500 transition">Twitter</a>
+                            <a href="https://instagram.com" target="_blank" class="text-gray-400 hover:text-red-500 transition">Instagram</a>
+                        </div>
+                    </div>
+                    <!-- Developed By -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-red-500 mb-4">Developed By</h3>
+                        <p class="text-gray-400">Sadikul_Jesan</p>
+                        <p class="text-gray-400">Mahi-B-Rahaman</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Text -->
+        <div class="bg-gray-800 text-center p-4 mt-2">
+            <p class="text-gray-400 text-sm">© 2025 GearQuest. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="src/js/script.js"></script>
+    <script>
+      // Extra-slow smooth scroll for nav links
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href').slice(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            e.preventDefault();
+            const yOffset = -20; // adjust for sticky nav if needed
+            const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({
+              top: y,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    </script>
+
+</body>
+
+</html>
