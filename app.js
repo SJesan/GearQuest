@@ -162,20 +162,20 @@ const total=()=>{
 
 const ratings=(rate)=>{
     if(rate>=4 && rate<=4.4){
-        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> ${rate}</h3>`
+        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i></h3>`
     }
     if(rate>=4 && rate<=4.9){
-        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> <i class="fa-solid fa-star-half-stroke text-orange-500"></i> ${rate}</h3>`
+        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> <i class="fa-solid fa-star-half-stroke text-orange-500"></i></h3>`
     }
     else if(rate>=3 && rate<4)
     {
-        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> ${rate}</h3>`
+        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i></h3>`
     }
     else if(rate>=2 && rate<3){
-        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> ${rate}</h3>`
+        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i></h3>`
     }
     else{
-        return star=` <h3><i class="fas fa-star text-orange-500"></i> ${rate}</h3>`
+        return star=` <h3><i class="fas fa-star text-orange-500"></i></h3>`
     }
 
 }
