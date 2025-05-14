@@ -6,6 +6,7 @@ const searchPrducts=()=>{
 
 }
 
+
 searchPrducts()
 
 
@@ -21,10 +22,11 @@ const showDetails=(products)=>{
                     alt="${element.name}" class="w-full h-48 object-cover rounded-lg transition-transform duration-300 group-hover:scale-110">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            <h3 class="text-xl font-semibold text-red-500 mb-2 line-clamp-2 group-hover:text-red-400 transition-colors">${element.name}</h3>
-            <p class="text-gray-400 mb-4 line-clamp-3 flex-grow group-hover:text-gray-300 transition-colors">${element.description}</p>
+            <h3 class="text-xl font-semibold text-red-500 pb-2 line-clamp-2 group-hover:text-red-400 transition-colors">${element.name}</h3>
+            <p class="text-gray-400 pb-2 line-clamp-3 flex-grow group-hover:text-gray-300 transition-colors">${element.description}</p>
             <div class="mt-auto">
                 <p class="text-lg text-white mb-4 font-bold">$ ${element.price}</p>
+                <p class="text-lg text-white mb-4 font-bold">Rating:${element.ratings} ${ratings(element.ratings)}</p>
                 <button onclick="addToCart(${JSON.stringify(element).replace(/"/g, '&quot;')})" 
                         class="w-full bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full text-lg transition-all duration-300 
                                transform hover:scale-105 hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center gap-2">
@@ -156,24 +158,27 @@ const total=()=>{
     document.getElementById('total').innerText=total
 
 }
-
+*/
 
 const ratings=(rate)=>{
-    if(rate>=4){
-        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> ${rate}</h3>`
+    if(rate>=4 && rate<=4.4){
+        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> ${rate}</h3>`
+    }
+    if(rate>=4 && rate<=4.9){
+        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> <i class="fa-solid fa-star-half-stroke text-orange-500"></i> ${rate}</h3>`
     }
     else if(rate>=3 && rate<4)
     {
-        return star=` <h3><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> ${rate}</h3>`
+        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> ${rate}</h3>`
     }
     else if(rate>=2 && rate<3){
-        return star=` <h3><i class="fas fa-star"></i><i class="fas fa-star"></i> ${rate}</h3>`
+        return star=` <h3><i class="fas fa-star text-orange-500"></i><i class="fas fa-star text-orange-500"></i> ${rate}</h3>`
     }
     else{
-        return star=` <h3><i class="fas fa-star"></i> ${rate}</h3>`
+        return star=` <h3><i class="fas fa-star text-orange-500"></i> ${rate}</h3>`
     }
 
-}*/
+}
 
 
 const orderProducts=()=>{
